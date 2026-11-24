@@ -64,8 +64,15 @@
       "bookId": "6UWv5uhmmWo",
       "memberId": "1",
       "dueDate": "2026-12-08",
-      "returned": false,
+      "returned": true,
       "id": "JsPdV-a_U0s"
+    },
+    {
+      "bookId": "1",
+      "memberId": "1",
+      "dueDate": "2026-12-08",
+      "returned": true,
+      "id": "5suCUR5-BIo"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

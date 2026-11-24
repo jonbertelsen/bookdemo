@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getDueDate, request } from './api'
 import BookForm from './components/BookForm'
 import Catalogue from './components/Catalogue'
@@ -15,8 +15,6 @@ export default function App() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
-  // Ref låser straks, også før næste render har deaktiveret knapperne.
-  const saving = useRef(false)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -45,8 +43,6 @@ export default function App() {
   }, [])
 
   async function save(action) {
-    if (saving.current) return false
-    saving.current = true
     setBusy(true)
     setError('')
     setMessage('')
@@ -57,7 +53,6 @@ export default function App() {
       setError(error.message)
       return false
     } finally {
-      saving.current = false
       setBusy(false)
     }
   }

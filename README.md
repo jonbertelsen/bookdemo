@@ -42,13 +42,13 @@ Start applikationen, og undersøg derefter koden. Besvar opgaverne med egne ord,
 6. **Fra klik til gemt bog:** Følg `onAdd` fra formularen til `addBook` i `App.jsx` og videre til API'et. Hvem opretter bogens id? Find den state-opdatering, der får den nye bog til at blive vist, og forklar brugen af `previous` og spread-syntaksen.
 7. **Tilgængelighed og udlån:** Brug `db.json` til at forklare, hvordan et lån forbindes med en bog og et medlem. Find `some` i `Catalogue.jsx`: Hvornår er en bog ledig? Følg derefter `borrowBook`, og forklar, hvorfor lån hentes igen før et nyt lån oprettes. Hvad sker der ved et låneforsøg på en udlånt bog?
 8. **Egne lån og aflevering:** Find filtreringen af `myLoans`. Hvilke to betingelser skal et lån opfylde? Følg en aflevering fra knappen i `LoanList.jsx` til `returnBook`. Hvad ændrer `PATCH` på serveren, og hvordan får state-opdateringen både lånelisten og kataloget til at ændre sig?
-9. **Datoer og gentagne klik:** Find beregningen af afleveringsdatoen i `api.js`. Hvor mange dage lægges til? Undersøg derefter `save` i `App.jsx`: Hvad bruges `try`, `catch` og `finally` til, og hvordan bruges `busy` og `saving` til at håndtere gentagne klik?
+9. **Datoer og deaktiverede knapper:** Find beregningen af afleveringsdatoen i `api.js`. Hvor mange dage lægges til? Undersøg derefter `save` i `App.jsx`: Hvad bruges `try`, `catch` og `finally` til? Følg `busy` fra state i `App` til knappernes `disabled`-attribut. Hvornår deaktiveres knapperne, og hvornår bliver de aktive igen?
 
 ## Afgrænsninger
 
 Aktuelt medlem er Alex Jensen (`memberId: "1"`). Lånetiden er valgt til 14 kalenderdage. Medlems- og bibliotekarfunktioner er samlet i samme skærmbillede; login og rollekontrol er uden for opgaven. De to illustrationer i opgaven ligger ikke i dette projekt, så layoutet er et selvstændigt forslag.
 
-Løsningen henter lån igen før et udlån og blokerer gentagne klik under igangværende kald. JSON Server har ingen transaktion, der atomisk kontrollerer og opretter et lån: to samtidige klienter kan stadig låne samme bog. Den regel skal håndhæves i en rigtig backend ved videreudvikling.
+Løsningen henter lån igen før et udlån og bruger `busy` til at deaktivere knapperne, mens et API-kald er i gang. Det hjælper mod gentagne klik i samme browserfane, men låser ikke JSON Server. To samtidige klienter kan stadig låne samme bog, fordi kontrollen og oprettelsen er separate requests. Den regel skal håndhæves samlet i en rigtig backend ved videreudvikling.
 
 REST-kaldene følger [JSON Servers officielle dokumentation](https://github.com/typicode/json-server).
 
