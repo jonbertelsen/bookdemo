@@ -19,6 +19,16 @@
       "title": "Deep Work",
       "author": "Calvin Newport",
       "id": "6UWv5uhmmWo"
+    },
+    {
+      "title": "De Små Synger",
+      "author": "Benny Andersen m.fl.",
+      "id": "KXswIdTcjTs"
+    },
+    {
+      "title": "asdf",
+      "author": "asdf",
+      "id": "1q1T3E1x_FY"
     }
   ],
   "members": [
@@ -73,6 +83,48 @@
       "dueDate": "2026-12-08",
       "returned": true,
       "id": "5suCUR5-BIo"
+    },
+    {
+      "bookId": "1",
+      "memberId": "1",
+      "dueDate": "2026-12-08",
+      "returned": true,
+      "id": "4CJddBwoCUE"
+    },
+    {
+      "bookId": "1",
+      "memberId": "1",
+      "dueDate": "2026-12-08",
+      "returned": true,
+      "id": "cv2FClobVOk"
+    },
+    {
+      "bookId": "3",
+      "memberId": "1",
+      "dueDate": "2026-12-08",
+      "returned": true,
+      "id": "NZuWju5gSes"
+    },
+    {
+      "bookId": "1",
+      "memberId": "1",
+      "dueDate": "2026-12-08",
+      "returned": true,
+      "id": "qUVZoKrMFEE"
+    },
+    {
+      "bookId": "2",
+      "memberId": "1",
+      "dueDate": "2026-12-08",
+      "returned": true,
+      "id": "yEz0lC1wtrI"
+    },
+    {
+      "bookId": "1",
+      "memberId": "1",
+      "dueDate": "2026-12-08",
+      "returned": false,
+      "id": "3Zx6ueWOukI"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

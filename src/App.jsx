@@ -17,29 +17,25 @@ export default function App() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    const controller = new AbortController()
     async function load() {
       try {
-        const options = { signal: controller.signal }
         const [books, members, loans] = await Promise.all([
-          request('/books', options),
-          request('/members', options),
-          request('/loans', options),
+          request('/books'),
+          request('/members'),
+          request('/loans'),
         ])
         setBooks(books)
         setMembers(members)
         setLoans(loans)
       } catch (error) {
-        if (!controller.signal.aborted)
-          setError(
-            `${error.message} Kontrollér at JSON Server kører på port 4000, og genindlæs siden.`,
-          )
+        setError(
+          `${error.message} Kontrollér at JSON Server kører på port 4000, og genindlæs siden.`,
+        )
       } finally {
-        if (!controller.signal.aborted) setLoading(false)
+        setLoading(false)
       }
     }
     load()
-    return () => controller.abort()
   }, [])
 
   async function save(action) {
