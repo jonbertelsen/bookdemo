@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router'
 
 export default function Catalogue({ books, loans, onBorrow, busy }) {
   const [search, setSearch] = useState('')
@@ -28,7 +29,7 @@ export default function Catalogue({ books, loans, onBorrow, busy }) {
           return (
             <li key={book.id}>
               <div>
-                <h3>{book.title}</h3>
+                <h3><Link to={`/books/${book.id}`}>{book.title}</Link></h3>
                 <p>{book.author}</p>
                 <span className={`badge ${available ? 'available' : ''}`}>
                   {available ? 'Ledig' : 'Udlånt'}
