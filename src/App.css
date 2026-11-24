@@ -1,0 +1,130 @@
+main {
+  max-width: 1140px;
+  margin: auto;
+  padding: 3rem 1.5rem;
+}
+header,
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+header > p {
+  font-size: 0.9rem;
+}
+.eyebrow {
+  color: #205c51;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+.intro,
+.panel > p,
+.book-list p,
+footer {
+  color: #536575;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+.panel {
+  background: white;
+  padding: 1.5rem;
+  border: 1px solid #d6e0e6;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+form {
+  display: grid;
+  gap: 0.4rem;
+}
+form input {
+  margin-bottom: 0.65rem;
+}
+form button {
+  margin-top: 0.4rem;
+  justify-self: start;
+}
+.book-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+.book-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid #e2e8ed;
+  padding: 1rem 0;
+}
+.book-list li:last-child {
+  padding-bottom: 0;
+}
+.book-list button {
+  flex-shrink: 0;
+}
+.book-list p {
+  margin-bottom: 0.4rem;
+}
+.badge {
+  display: inline-block;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  padding: 0.1rem 0.5rem;
+  background: #eef0f3;
+  color: #536575;
+}
+.badge.available {
+  background: #e1f2ea;
+  color: #205c51;
+}
+.secondary {
+  color: #205c51;
+  background: white;
+}
+.secondary:hover {
+  background: #e1f2ea;
+}
+.error {
+  color: #9c2626;
+}
+.notice {
+  padding: 1rem;
+  background: #fff0ef;
+  border: 1px solid #e4b9b5;
+  border-radius: 6px;
+}
+.status {
+  color: #205c51;
+  min-height: 1.6em;
+}
+.empty {
+  padding: 1rem 0;
+}
+footer {
+  font-size: 0.875rem;
+  margin-top: 1.5rem;
+}
+@media (max-width: 760px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  header {
+    align-items: start;
+    flex-direction: column;
+  }
+  main {
+    padding: 1.5rem 1rem;
+  }
+  .book-list li {
+    align-items: start;
+    flex-direction: column;
+  }
+}

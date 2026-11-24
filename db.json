@@ -1,0 +1,72 @@
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "Clean Code",
+      "author": "Robert C. Martin"
+    },
+    {
+      "id": "2",
+      "title": "The Pragmatic Programmer",
+      "author": "David Thomas and Andrew Hunt"
+    },
+    {
+      "id": "3",
+      "title": "Eloquent JavaScript",
+      "author": "Marijn Haverbeke"
+    },
+    {
+      "title": "Deep Work",
+      "author": "Calvin Newport",
+      "id": "6UWv5uhmmWo"
+    }
+  ],
+  "members": [
+    {
+      "id": "1",
+      "name": "Alex Jensen"
+    },
+    {
+      "id": "2",
+      "name": "Sam Nielsen"
+    }
+  ],
+  "loans": [
+    {
+      "id": "1",
+      "bookId": "2",
+      "memberId": "1",
+      "dueDate": "2026-12-08",
+      "returned": true
+    },
+    {
+      "bookId": "6UWv5uhmmWo",
+      "memberId": "1",
+      "dueDate": "2026-12-08",
+      "returned": true,
+      "id": "dAnnWTsd3ug"
+    },
+    {
+      "bookId": "1",
+      "memberId": "1",
+      "dueDate": "2026-12-08",
+      "returned": true,
+      "id": "Bh2D1-aBmBc"
+    },
+    {
+      "bookId": "1",
+      "memberId": "1",
+      "dueDate": "2026-12-08",
+      "returned": true,
+      "id": "Dm-3gNY3dI0"
+    },
+    {
+      "bookId": "6UWv5uhmmWo",
+      "memberId": "1",
+      "dueDate": "2026-12-08",
+      "returned": false,
+      "id": "JsPdV-a_U0s"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
