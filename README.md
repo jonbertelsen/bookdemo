@@ -30,15 +30,19 @@ En bog repræsenterer ét fysisk eksemplar. Tilgængelighed beregnes ud fra akti
 
 `App` sender data ned som props og sender callbacks til handlinger. Efter et vellykket API-kald opdateres state med serverens svar. Ved fejl vises en besked, og formularens indhold bevares. Ved låneforsøg på en udlånt bog vises en fejl uden at oprette et lån.
 
-## Forslag til undervisningsrækkefølge
+## Forslag til analyse af applikationen
 
-1. Vis et statisk katalog og udtræk komponenter. Tal om props og `key`.
-2. Tilføj søgning med `useState` og afledte søgeresultater.
-3. Erstat statiske data med `useEffect`, `fetch`, loading og fejlbeskeder.
-4. Byg bogformularen med kontrollerede inputs og `POST`.
-5. Indfør lån som relation mellem bog og medlem. Beregn tilgængelighed og opret lån.
-6. Vis egne lån, og registrér aflevering med `PATCH`.
-7. Udvid senere med routing: katalog og egne lån kan blive separate sider, mens fælles state bliver over begge sider.
+Start applikationen, og undersøg derefter koden. Besvar opgaverne med egne ord, og peg på de linjer, der underbygger jeres svar. Forudsig først, hvad der sker, og kontrollér derefter jeres forklaring i applikationen.
+
+1. **Komponenter og props:** Find de komponenter, som `App` viser. Tegn et lille komponenttræ, og vælg én komponent: Hvilke props modtager den, og hvilke er data eller funktioner?
+2. **State og afledte værdier:** Find `useState` i `App.jsx` og `Catalogue.jsx`. Hvad gemmes hvert sted? Find også `myLoans` og `visibleBooks`, og forklar, hvorfor de kan beregnes uden deres egen state.
+3. **Indlæsning af data:** Følg `useEffect` i `App.jsx` og `request` i `api.js`. Hvilke endpoints kaldes, og hvad bruges `Promise.all` til? Find den kode, der bestemmer, hvad brugeren ser, mens data hentes, og hvis et kald fejler.
+4. **Søgning:** Følg en indtastning fra søgefeltets `onChange` til listen i `Catalogue.jsx`. Hvad gør `trim`, `toLocaleLowerCase`, `filter` og `includes`? Forudsig resultaterne for ` CLEAN `, `martin`, `xyz` og et tomt søgefelt, og afprøv dem.
+5. **Formular og validering:** Undersøg `BookForm.jsx`. Hvordan hænger inputfelterne sammen med state, og hvorfor kaldes `preventDefault`? Følg et forsøg på at gemme en titel med kun mellemrum. Hvornår ryddes felterne efter en gyldig indtastning?
+6. **Fra klik til gemt bog:** Følg `onAdd` fra formularen til `addBook` i `App.jsx` og videre til API'et. Hvem opretter bogens id? Find den state-opdatering, der får den nye bog til at blive vist, og forklar brugen af `previous` og spread-syntaksen.
+7. **Tilgængelighed og udlån:** Brug `db.json` til at forklare, hvordan et lån forbindes med en bog og et medlem. Find `some` i `Catalogue.jsx`: Hvornår er en bog ledig? Følg derefter `borrowBook`, og forklar, hvorfor lån hentes igen før et nyt lån oprettes. Hvad sker der ved et låneforsøg på en udlånt bog?
+8. **Egne lån og aflevering:** Find filtreringen af `myLoans`. Hvilke to betingelser skal et lån opfylde? Følg en aflevering fra knappen i `LoanList.jsx` til `returnBook`. Hvad ændrer `PATCH` på serveren, og hvordan får state-opdateringen både lånelisten og kataloget til at ændre sig?
+9. **Datoer og gentagne klik:** Find beregningen af afleveringsdatoen i `api.js`. Hvor mange dage lægges til? Undersøg derefter `save` i `App.jsx`: Hvad bruges `try`, `catch` og `finally` til, og hvordan bruges `busy` og `saving` til at håndtere gentagne klik?
 
 ## Afgrænsninger
 
