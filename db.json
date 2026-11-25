@@ -132,6 +132,13 @@
       "dueDate": "2026-12-09",
       "returned": true,
       "id": "fgaVXNJhf3I"
+    },
+    {
+      "bookId": "1",
+      "memberId": "1",
+      "dueDate": "2026-12-09",
+      "returned": false,
+      "id": "n5rfCRbV0ZY"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
