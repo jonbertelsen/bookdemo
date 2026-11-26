@@ -1,6 +1,9 @@
 import { NavLink } from 'react-router'
 
+import { useAuth } from '../auth/useAuth'
+
 function TopMenu() {
+  const { member, isAdmin } = useAuth()
   return (
     <nav aria-label='Hovedmenu'>
       <NavLink to='/' end>
@@ -9,8 +12,8 @@ function TopMenu() {
       <NavLink to='/books' end>
         Bøger
       </NavLink>
-      <NavLink to='/loans'>Mine lån</NavLink>
-      <NavLink to='/books/new'>Tilføj bog</NavLink>
+      {member && <NavLink to='/loans'>Mine lån</NavLink>}
+      {isAdmin && <NavLink to='/books/new'>Tilføj bog</NavLink>}
     </nav>
   )
 }

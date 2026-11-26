@@ -147,3 +147,7 @@ footer {
     flex-direction: column;
   }
 }
+
+.login-panel {
+  max-width: 480px;
+}

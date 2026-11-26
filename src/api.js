@@ -6,7 +6,9 @@ export async function request(path, options = {}) {
     headers: { 'Content-Type': 'application/json', ...options.headers },
   })
   if (!response.ok) {
-    throw new Error(`Serveren svarede med fejl ${response.status}. Prøv igen.`)
+    const error = new Error(`Serveren svarede med fejl ${response.status}. Prøv igen.`)
+    error.status = response.status
+    throw error
   }
   return response.json()
 }

@@ -1,4 +1,6 @@
 import { Route, Routes } from 'react-router'
+import LoginPage from './pages/LoginPage'
+import RequireAuth from './auth/RequireAuth'
 import LibraryLayout from './layouts/LibraryLayout'
 import HomePage from './pages/HomePage'
 import BooksPage from './pages/BooksPage'
@@ -14,10 +16,15 @@ export default function App() {
         <Route index element={<HomePage />} />
         <Route path='books'>
           <Route index element={<BooksPage />} />
-          <Route path='new' element={<AddBookPage />} />
+          <Route element={<RequireAuth admin />} >
+            <Route path='new' element={<AddBookPage />} />
+          </Route>
           <Route path=':bookId' element={<BookDetailsPage />} />
         </Route>
-        <Route path='loans' element={<LoansPage />} />
+        <Route path='login' element={<LoginPage />} />
+        <Route element={<RequireAuth />} >
+          <Route path='loans' element={<LoansPage />} />
+        </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Route>
     </Routes>

@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import { getDueDate, request } from '../api'
-import { NavLink, Outlet } from 'react-router'
+import { Outlet, useNavigate } from 'react-router'
 import Header from '../components/Header'
 import TopMenu from '../components/TopMenu'
 import '../styles/App.css'
 
-const CURRENT_MEMBER_ID = '1'
+import { useAuth } from '../auth/useAuth'
 
 export default function LibraryLayout() {
   const [books, setBooks] = useState([])
-  const [members, setMembers] = useState([])
+  const { member, checking, error: authError, isAdmin, logout } = useAuth()
+  const navigate = useNavigate()
   const [loans, setLoans] = useState([])
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState(false)
@@ -19,17 +20,15 @@ export default function LibraryLayout() {
   useEffect(() => {
     async function load() {
       try {
-        const [books, members, loans] = await Promise.all([
+        const [books, loans] = await Promise.all([
           request('/books'),
-          request('/members'),
           request('/loans'),
         ])
         setBooks(books)
-        setMembers(members)
         setLoans(loans)
       } catch (error) {
         setError(
-          `${error.message} Kontrollér at JSON Server kører på port 4000, og genindlæs siden.`,
+          `${error.message} Kontrollér at Javalin API’et kører på port 7070, og genindlæs siden.`,
         )
       } finally {
         setLoading(false)
@@ -46,7 +45,14 @@ export default function LibraryLayout() {
       await action()
       return true
     } catch (error) {
-      setError(error.message)
+      if (error.status === 401) {
+        logout()
+        setError('Dit login er udløbet eller ugyldigt. Log ind igen.')
+      } else if (error.status === 403) {
+        setError('Du har ikke den nødvendige rolle til at udføre denne handling.')
+      } else {
+        setError(error.message)
+      }
       return false
     } finally {
       setBusy(false)
@@ -55,13 +61,22 @@ export default function LibraryLayout() {
 
   function addBook(book) {
     return save(async () => {
-      const created = await request('/books', { method: 'POST', body: JSON.stringify(book) })
+      if (!isAdmin) throw new Error('Du skal være administrator for at tilføje bøger.')
+      const created = await request('/books', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+        body: JSON.stringify(book),
+      })
       setBooks((previous) => [...previous, created])
       setMessage(`“${created.title}” er tilføjet til kataloget.`)
     })
   }
 
   function borrowBook(book) {
+    if (!member) {
+      navigate('/login', { state: { from: `/books/${book.id}` } })
+      return Promise.resolve(false)
+    }
     return save(async () => {
       // Hent igen, så vi også opdager lån oprettet siden sidens indlæsning.
       const latestLoans = await request('/loans')
@@ -71,9 +86,10 @@ export default function LibraryLayout() {
       }
       const loan = await request('/loans', {
         method: 'POST',
+        headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
         body: JSON.stringify({
           bookId: book.id,
-          memberId: CURRENT_MEMBER_ID,
+          memberId: member.id,
           dueDate: getDueDate(),
           returned: false,
         }),
@@ -85,6 +101,9 @@ export default function LibraryLayout() {
 
   function returnBook(loan) {
     return save(async () => {
+      if (!member || String(loan.memberId) !== String(member.id)) {
+        throw new Error('Log ind som medlemmet, der har lånt bogen.')
+      }
       const updated = await request(`/loans/${loan.id}`, {
         method: 'PATCH',
         body: JSON.stringify({ returned: true }),
@@ -94,14 +113,14 @@ export default function LibraryLayout() {
     })
   }
 
-  const member = members.find((member) => member.id === CURRENT_MEMBER_ID)
-  const myLoans = loans.filter((loan) => loan.memberId === CURRENT_MEMBER_ID && !loan.returned)
+  const myLoans = member ? loans.filter((loan) => String(loan.memberId) === String(member.id) && !loan.returned) : []
 
   return (
     <main>
-      <Header member={member} />
+      <Header />
       <TopMenu />
 
+      {authError && <p className='notice error' role='alert'>{authError}</p>}
       {error && (
         <p className='notice error' role='alert'>
           {error}
@@ -111,7 +130,7 @@ export default function LibraryLayout() {
         {message}
       </p>
 
-      {loading ? (
+      {checking ? <p role='status'>Kontrollerer login…</p> : loading ? (
         <p>Henter biblioteket…</p>
       ) : (
         <Outlet
@@ -127,7 +146,7 @@ export default function LibraryLayout() {
         />
       )}
 
-      <footer>Undervisningsdemo · Ét eksemplar pr. bog · Ingen login eller rollekontrol</footer>
+      <footer>Undervisningsdemo · Ét eksemplar pr. bog · Login med Javalin API</footer>
     </main>
   )
 }
