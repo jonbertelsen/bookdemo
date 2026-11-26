@@ -123,8 +123,22 @@
       "bookId": "1",
       "memberId": "1",
       "dueDate": "2026-12-08",
-      "returned": false,
+      "returned": true,
       "id": "3Zx6ueWOukI"
+    },
+    {
+      "bookId": "1",
+      "memberId": "1",
+      "dueDate": "2026-12-09",
+      "returned": false,
+      "id": "SlPGNMEFSfM"
+    },
+    {
+      "bookId": "1q1T3E1x_FY",
+      "memberId": "1",
+      "dueDate": "2026-12-09",
+      "returned": true,
+      "id": "f2jc5oFzq-A"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

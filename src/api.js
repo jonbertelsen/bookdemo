@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:4000'
+const BASE_URL = 'http://localhost:7070/api/v1'
 
 export async function request(path, options = {}) {
   const response = await fetch(`${BASE_URL}${path}`, {

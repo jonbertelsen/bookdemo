@@ -1,3 +1,22 @@
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+nav a {
+  color: #205c51;
+  text-decoration: none;
+  padding: 0.4rem 0;
+}
+
+nav a.active {
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
 main {
   max-width: 1140px;
   margin: auto;
